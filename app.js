@@ -11,11 +11,15 @@ function makeData(data){
     var x_val=[];
     var y_val=[];
     for(let day in data){
-        x_val.push(data[day].Date);
+        x_val.push(simplifyDate(data[day].Date));
         y_val.push(data[day].Confirmed);
     }
     
     return [x_val,y_val]
+}
+
+function simplifyDate(date){
+    return date.substr(0,10);
 }
 
 function makeChart(x_val,y_val,data){
