@@ -7,6 +7,9 @@ var myLineChart = new Chart(ctx);
 document.getElementById("sbtn").onclick = async ()=>{
    country = document.getElementById("country").value;
    data = await getCovidData(country);
+   if (data.hasOwnProperty('message')){
+     window.alert(data.message);
+   }
    const [x_val,y_val] = makeData(data);
    config.data.labels = x_val;
 
@@ -17,6 +20,8 @@ document.getElementById("sbtn").onclick = async ()=>{
 };
 var config = {
   type: 'line',
+  responsive: true,
+  maintainAspectRatio: true,
   data: {
     labels: null,
     datasets: []
@@ -26,7 +31,6 @@ var config = {
       scales: {
         yAxes: [{
             ticks: {
-                padding: 0
             }
         }], 
     },
@@ -65,9 +69,11 @@ function simplifyDate(date){
 }
 
 let updateGraph = (data,y_val,config)=>{
-  console.log(config.datasets)
+  let randomColor = Math.floor(Math.random()*16777215).toString(16);
+  console.log(randomColor)
+
   config.data.datasets.push({
-    borderColor: "#3e95cd",
+    borderColor: 'red',
     data:y_val,
     label:data[0].Country,
     fill:false
